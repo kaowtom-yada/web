@@ -326,22 +326,22 @@ document.getElementById("myForm").addEventListener("submit", function (e) {
     marital_status: document.getElementById("marital_status").value,
     education: document.getElementById("education").value,
     income: document.getElementById("income").value,
-    disease1: document.getElementById('input[name="disease1"]:checked')?.value || "",
+    disease1: document.querySelector('input[name="disease1"]:checked')?.value || "",
     disease_check11: document.getElementById("disease_check11").checked,
     disease_check22: document.getElementById("disease_check22").checked,
     disease_check33: document.getElementById("disease_check33").checked,
     period: document.getElementById("period").value,
-    alcohol: document.getElementById('input[name="alcohol"]:checked')?.value || "",
+    alcohol: document.querySelector('input[name="alcohol"]:checked')?.value || "",
     alcohol2: document.getElementById("alcohol2").value,
-    smoke: document.getElementById('input[name="smoke"]:checked')?.value || "",
+    smoke: document.querySelector('input[name="smoke"]:checked')?.value || "",
     smoke2: document.getElementById("smoke2").value,
-    disease_: document.getElementById('input[name="disease1"]:checked')?.value || "",
+    disease_: document.querySelector('input[name="disease1"]:checked')?.value || "",
     disease_check1: document.getElementById("disease_check1").checked,
     disease_check2: document.getElementById("disease_check2").checked,
     disease_check3: document.getElementById("disease_check3").checked,
     disease_check4: document.getElementById("disease_check4").checked,
     disease_check5: document.getElementById("disease_check5").checked,
-    drug: document.getElementById('input[name="drug"]:checked')?.value || "",
+    drug: document.querySelector('input[name="drug"]:checked')?.value || "",
     type: document.getElementById("type").value
   };
 
@@ -368,6 +368,7 @@ document.getElementById("myForm").addEventListener("submit", function (e) {
   });
 });
 </script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
