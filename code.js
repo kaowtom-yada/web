@@ -32,7 +32,7 @@ function doPost(e) {
   const result = processForm(formObject);
   return ContentService
     .createTextOutput(JSON.stringify({status: "success"}))
-    .setMimeType(ContentService.MimeType.JSON);
+    .setMimeType(ContentService.MimeType.JSON)
     .setHeader("Access-Control-Allow-Origin", "*");
 }
 
