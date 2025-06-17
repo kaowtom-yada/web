@@ -30,8 +30,10 @@ function getUrl() {
 function doPost(e) {
   const formObject = JSON.parse(e.postData.contents);
   const result = processForm(formObject);
-  return ContentService.createTextOutput(JSON.stringify(result))
+  return ContentService
+    .createTextOutput(JSON.stringify({status: "success"}))
     .setMimeType(ContentService.MimeType.JSON);
+    .setHeader("Access-Control-Allow-Origin", "*");
 }
 
 function processForm(formObject) {
