@@ -28,12 +28,16 @@ function getUrl() {
 
 // ✅ ใช้ doPost แทน google.script.run
 function doPost(e) {
-  const formObject = JSON.parse(e.postData.contents);
-  const result = processForm(formObject);
+  var data = JSON.parse(e.postData.contents);
+
+  // TODO: ทำการบันทึกข้อมูลลงชีตตามปกติ
+
   return ContentService
-    .createTextOutput(JSON.stringify({status: "success"}))
+    .createTextOutput(JSON.stringify({ status: "success" }))
     .setMimeType(ContentService.MimeType.JSON)
-    .setHeader("Access-Control-Allow-Origin", "*");
+    .setHeader("Access-Control-Allow-Origin", "*") // 👈 เพิ่มบรรทัดนี้
+    .setHeader("Access-Control-Allow-Methods", "POST")
+    .setHeader("Access-Control-Allow-Headers", "Content-Type");
 }
 
 function processForm(formObject) {
