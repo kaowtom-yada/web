@@ -28,55 +28,60 @@ function getUrl() {
 
 // ✅ ใช้ doPost แทน google.script.run
 function doPost(e) {
-  var data = JSON.parse(e.postData.contents);
+  const headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "POST",
+    "Access-Control-Allow-Headers": "Content-Type"
+  };
 
-  // TODO: ทำการบันทึกข้อมูลลงชีตตามปกติ
+  try {
+    const data = JSON.parse(e.postData.contents);
 
-  return ContentService
-    .createTextOutput(JSON.stringify({ status: "success" }))
-    .setMimeType(ContentService.MimeType.JSON)
-    .setHeader("Access-Control-Allow-Origin", "*") // 👈 เพิ่มบรรทัดนี้
-    .setHeader("Access-Control-Allow-Methods", "POST")
-    .setHeader("Access-Control-Allow-Headers", "Content-Type");
-}
+    // ตรวจสอบข้อมูลซ้ำได้ตรงนี้ (เสริมได้ภายหลัง)
 
-function processForm(formObject) {
-  const ss = SpreadsheetApp.openById('1Wlnii1StySbMlb-2_OPjhBpdZ5OwTXj84PC7-bR5NAo');
-  const ws = ss.getSheets()[0];
-  const data = ws.getDataRange().getValues();
+    // บันทึกลงชีต
+    const sheet = SpreadsheetApp.openById("ใส่ Google Sheet ID ของคุณ");
+    const ws = sheet.getSheetByName("Sheet1"); // หรือชื่อชีตที่ใช้
 
-  const alreadyExists = data.some(row => row[0] === formObject.first_name && row[1] === formObject.last_name);
-  if (alreadyExists) {
-    return { status: "duplicate" };
+    ws.appendRow([
+      new Date(),
+      data.first_name,
+      data.last_name,
+      data.gender,
+      data.wght,
+      data.height,
+      data.marital_status,
+      data.education,
+      data.income,
+      data.disease1,
+      data.disease_check11,
+      data.disease_check22,
+      data.disease_check33,
+      data.period,
+      data.alcohol,
+      data.alcohol2,
+      data.smoke,
+      data.smoke2,
+      data.disease_,
+      data.disease_check1,
+      data.disease_check2,
+      data.disease_check3,
+      data.disease_check4,
+      data.disease_check5,
+      data.drug,
+      data.type
+    ]);
+
+    return ContentService
+      .createTextOutput(JSON.stringify({ status: "success" }))
+      .setMimeType(ContentService.MimeType.JSON)
+      .setHeaders(headers);
+
+  } catch (error) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ status: "error", message: error.message }))
+      .setMimeType(ContentService.MimeType.JSON)
+      .setHeaders(headers);
   }
-
-  ws.appendRow([
-    formObject.first_name,
-    formObject.last_name,
-    formObject.gender,
-    formObject.wght,
-    formObject.height,
-    formObject.marital_status,
-    formObject.education,
-    formObject.income,
-    formObject.disease1,
-    formObject.disease_check11,
-    formObject.disease_check22,
-    formObject.disease_check33,
-    formObject.period,
-    formObject.alcohol,
-    formObject.alcohol2,
-    formObject.smoke,
-    formObject.smoke2,
-    formObject.disease_,
-    formObject.disease_check1,
-    formObject.disease_check2,
-    formObject.disease_check3,
-    formObject.disease_check4,
-    formObject.disease_check5,
-    formObject.drug,
-    formObject.type
-  ]);
-
-  return { status: "success" };
 }
+
